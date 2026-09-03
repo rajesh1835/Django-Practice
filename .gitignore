@@ -1,0 +1,43 @@
+# ==========================================
+# Django Core & Runtime
+# ==========================================
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# ==========================================
+# Environments & Secrets
+# ==========================================
+.env
+.venv
+env/
+venv/
+ENV/
+contrib/env/
+
+# ==========================================
+# OS-Specific Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# IDEs and Text Editors
+# ==========================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
