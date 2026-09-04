@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Card</title>
+
+    <style>
+        .bg-dark {
+            background-image: linear-gradient(45deg, black, rgb(206, 12, 12));
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark px-3">
+        <a href="#" class="navbar-brand">🏆R C B</a>
+    </nav>
+    <div class="card mt-5 w-50 m-auto shadow">
+        <div class="card-header bg-dark p-0">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNQ8GO2pDBzB7JA9zZ_SE0nKL85U05HAVNnpJmQF2vXQ&s=10"
+                class="img-fluid" alt=" ..">
+        </div>
+
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Likes</h1>
+                    <h2 id="like-ele"></h2>
+                    <button id="like-btn" class="btn btn-success">👍</button>
+                </div>
+                <div class="col-md-6">
+                    <h1>Dislikes</h1>
+                    <h2 id="dislike-ele"></h2>
+                    <button id="dislike-btn" class="btn btn-danger">👎</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card-footer text-white text-center bg-dark">
+            <h3>Total:-<span id="total-ele"></span></h3>
+        </div>
+
+    </div>
+    <script src="{% static 'js/card.js' %}"></script>
+    <footer style="margin-bottom: 500px;">
+    </footer>
+</body>
+</html>
