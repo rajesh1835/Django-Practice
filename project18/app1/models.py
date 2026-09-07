@@ -9,9 +9,10 @@ class Webpage(models.Model):
     topic_name = models.ForeignKey(Topic, on_delete=models.CASCADE)
     name = models.CharField()
     url = models.URLField()
+    email = models.EmailField(null=True, blank=True)
+    mobile = models.CharField(max_length=10)
 
 class AccessRecord(models.Model):
     name = models.ForeignKey(Webpage, on_delete=models.CASCADE)
     author = models.CharField()
     date = models.DateField()
-
