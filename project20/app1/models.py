@@ -19,7 +19,7 @@ class Emp(models.Model):
     deptno = models.ForeignKey(Dept, on_delete=models.CASCADE)
     mgr = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
-    def __int__(self):
+    def __str__(self):
         return self.ename
     
 class SalGrade(models.Model):
@@ -27,5 +27,5 @@ class SalGrade(models.Model):
     losal = models.DecimalField(max_digits=10, decimal_places=2)
     hisal = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __init__(self):
+    def __str__(self):
         return self.grade
