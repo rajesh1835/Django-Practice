@@ -19,7 +19,7 @@ class Webpage(models.Model):
 class AccessRecord(models.Model):
     name = models.ForeignKey(Webpage, on_delete=models.CASCADE)
     author = models.CharField()
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.author
