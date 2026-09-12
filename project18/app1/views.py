@@ -11,10 +11,10 @@ def insert_topic(request):
         return HttpResponse("Topic alredy exists! 🙃🌹")
 
 def get_topics(request):
-    for to in Topic.objects.all():
-        print(to.topic_name)
-
-    return HttpResponse("Available Topics.")
+    QSTO = Topic.objects.all()
+    context = {"QSTO": QSTO}
+    
+    return render(request, "display_topics.html", context)
 
 def insert_webpage(request):
     print("--- Available Topics ---")
@@ -41,9 +41,10 @@ def insert_webpage(request):
 
 
 def get_webpages(request):
-    for wpo in Webpage.objects.all():
-        print(wpo)
-    return HttpResponse("Avalable Webpages")
+    QSWO = Webpage.objects.all()
+    context = {"QSWO": QSWO}
+
+    return render(request, "display_webpages.html", context)
 
 
 def insert_access_records(request):
@@ -67,7 +68,8 @@ def insert_access_records(request):
 
 
 def get_access_records(request):
-    for aco in AccessRecord.objects.all():
-        print(aco)
+    QSARO = AccessRecord.objects.all()
 
-    return HttpResponse("Retrived Success fully🤩")
+    context = {"QSARO": QSARO}
+
+    return render(request, "display_access_records.html", context)
