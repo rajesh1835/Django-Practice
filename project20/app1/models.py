@@ -7,7 +7,7 @@ class Dept(models.Model):
     loc = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.dname
+        return str(self.deptno)
     
 class Emp(models.Model):
     empno = models.IntegerField(primary_key=True)
@@ -20,7 +20,7 @@ class Emp(models.Model):
     mgr = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.ename
+        return str(self.empno)
     
 class SalGrade(models.Model):
     grade = models.IntegerField(primary_key=True)

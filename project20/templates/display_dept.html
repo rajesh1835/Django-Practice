@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments</title>
+</head>
+
+<body>
+    <center>
+        <table border="3px">
+            <tr>
+                <th>Dept No</th>
+                <th>Dept Name</th>
+                <th>Location</th>
+            </tr>
+            {% for r in QSDO %}
+            <tr>
+                <td>{{ r.deptno }}</td>
+                <td>{{ r.dname }}</td>
+                <td>{{ r.loc }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+
+</html
