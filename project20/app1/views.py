@@ -43,4 +43,18 @@ def display_departments(request):
     context = {"QSDO": QSDO}
 
     return render(request, "display_dept.html", context)
+
+def display_employees(request):
+    QSEO = Emp.objects.all()
+    QSEO = Emp.objects.filter(ename__startswith="s")
+    QSEO = Emp.objects.filter(ename__endswith="s")
+    QSEO = Emp.objects.filter(ename__contains="e")
+
+    QSEO = Emp.objects.filter(deptno__in=(20,30))
+    QSEO = Emp.objects.filter(hiredate__year="2026")
+
+
+    context = {"QSEO" : QSEO}
+
+    return render(request, "display_emp.html", context)
     
