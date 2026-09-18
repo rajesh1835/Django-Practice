@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Dept, Emp, SalGrade
 from django.http import HttpResponse
+from django.db.models import Q
 
 def insert_employee(request):
     print("*** Available Departments ***")
@@ -52,6 +53,30 @@ def display_employees(request):
 
     QSEO = Emp.objects.filter(deptno__in=(20,30))
     QSEO = Emp.objects.filter(hiredate__year="2026")
+    QSEO = Emp.objects.filter().values('ename')
+    QSEO = Emp.objects.filter().values('ename','deptno')
+    QSEO = Emp.objects.filter().values('ename','comm')
+    QSEO = Emp.objects.filter(ename="BLAKE")
+    QSEO = Emp.objects.filter(sal__gt=2000)
+    QSEO = Emp.objects.filter(job="SALESMAN")
+    QSEO = Emp.objects.filter(hiredate__year__gt=1982)
+    QSEO = Emp.objects.filter(job="CLERK").values("sal")
+    QSEO = Emp.objects.filter(ename="JONES")
+    QSEO = Emp.objects.filter(hiredate__gt='1981-01-01')
+    QSEO = Emp.objects.filter(sal__gt=2000, sal__lte=3500)
+
+    QSEO = Emp.objects.filter(job__in=("MANAGER", "CLERK"))
+    QSEO = Emp.objects.filter(Q(job__in=("MANAGER", "CLERK")) | Q(deptno=10))
+    QSEO = Emp.objects.exclude(job="SALESMAN")
+    QSEO = Emp.objects.filter(job="SALESMAN", deptno__in=(10,30))
+    QSEO = Emp.objects.filter(job__in=("MANAGER", "CLERK"), deptno__in=(10,30))
+    QSEO = Emp.objects.filter(empno__in=(7902, 7839))
+    QSEO = Emp.objects.filter(hiredate__year__gt="1981", deptno__in=(10,30))
+    QSEO = Emp.objects.filter(sal__range=(1000, 4000))
+    QSEO = Emp.objects.exclude(job__in=("ANALYST", "MANAGER"))
+    QSEO = Emp.objects.filter(hiredate__range=("1981-01-01", "1987-12-31"))
+    QSEO = Emp.objects.filter(comm=None)
+    
 
 
     context = {"QSEO" : QSEO}
