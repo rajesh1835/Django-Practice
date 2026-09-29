@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Topic, Webpage, AccessRecord
 from django.http import HttpResponse
+from django.db.models.functions import Length
 
 def insert_topic(request):
     tn = input("Enter the Topic Name: ")
@@ -42,6 +43,9 @@ def insert_webpage(request):
 
 def get_webpages(request):
     QSWO = Webpage.objects.all()
+    QSWO = Webpage.objects.order_by("topic_name")
+    QSWO = Webpage.objects.order_by(Length("name").desc())
+
     context = {"QSWO": QSWO}
 
     return render(request, "display_webpages.html", context)
