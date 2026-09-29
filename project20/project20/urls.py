@@ -23,4 +23,8 @@ urlpatterns = [
     path("insert_employee/", insert_employee, name="insert-employee"),
     path("departments/", display_departments, name="display-departments"),
     path("employees/", display_employees, name="display-employees"),
+    path("empToDept/", empToDept, name="empToDept"),
+    path("empToMgr/", empToMgr, name="empToMgr"),
+    path("empToMgrADept/", empToMgrADept, name="empToMgrADept"),
+    path("deptToEmpPR/", deptToEmpPR, name="deptToEmpPR"),
 ]

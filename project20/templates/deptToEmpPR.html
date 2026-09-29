@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefetch Related </title>
+</head>
+
+<body>
+    <center>
+        {% for DEO in QSDEO %}
+        {% if DEO.emp_set.all %}
+        <h2><i>Employees of {{ DEO.dname }}, Dept.No: {{ DEO.deptno }}, Location: {{ DEO.loc }}</i></h2>
+
+
+        <table border="4px">
+            <tr>
+                <th>Name</th>
+                <th>Emp No</th>
+                <th>Job</th>
+                <th>Sal</th>
+            </tr>
+            {% for eo in DEO.emp_set.all %}
+            <tr>
+                <td>{{ eo.ename }}</td>
+                <td>{{ eo.empno }}</td>
+                <td>{{ eo.job }}</td>
+                <td>{{ eo.sal }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        {% endfor %}
+    </center>
+</body>
+
+</html>
