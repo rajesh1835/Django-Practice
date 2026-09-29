@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Related</title>
+</head>
+<body>
+    <center>
+        <h1><i>** Select Related **</i></h1>
+        <table border="3px">
+            <tr>
+                <th>Name</th>
+                <th>EmpNo</th>
+                <th>Mgr</th>
+                <th>Sal</th>
+                <th>Job</th>
+                <th>Hiredate</th>
+                <th>DeptNo</th>
+                <th>Comm</th>
+
+                <th>Dname</th>
+                <th>Loc</th>
+                <th>DeptNo</th>
+            </tr>
+            {% for EDO in QSLEDO %}
+            <tr>
+                <td>{{ EDO.ename }}</td>
+                <td>{{ EDO.empno }}</td>
+                <td>{{ EDO.mgr }}</td>
+                <td>{{ EDO.sal }}</td>
+                <td>{{ EDO.job }}</td>
+                <td>{{ EDO.hiredate }}</td>
+                <td>{{ EDO.deptno }}</td>
+                <td>{{ EDO.comm }}</td>
+             
+                <td>{{ EDO.deptno.dname }}</td>
+                <td>{{ EDO.deptno.loc }}</td>
+                <td>{{ EDO.deptno.deptno }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

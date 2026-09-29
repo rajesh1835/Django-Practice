@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Join</title>
+</head>
+<body>
+    <center>
+        <h2><i>~~ Multiple Joins ~~</i></h2>
+        <table border="5px">
+            <tr>
+                <th>Emp Name</th>
+                <th>Emp Job</th>
+                <th>Dept Name</th>
+                <th>Dept No</th>
+
+                <th>Mgr Name</th>
+                <th>Mgr Job</th>
+                <th>Mgr Dept No</th>
+                <th>Mgr Dept Name</th>
+                <th>Mgr Loc</th>
+
+                <!-- <th>Mgr's Mgr Name</th>
+                <th>Mgr's Mgr Dept Name</th> -->
+
+            </tr>
+            {% for EMDO in QSEMDO %}
+            <tr>
+                <td>{{ EMDO.ename }}</td>
+                <td>{{ EMDO.job }}</td>
+                <td>{{ EMDO.deptno.dname }}</td>
+                <td>{{ EMDO.deptno }}</td>
+
+                <td>{{ EMDO.mgr.ename }}</td>
+                <td>{{ EMDO.mgr.job }}</td>
+                <td>{{ EMDO.mgr.deptno.deptno }}</td>
+                <td>{{EMDO.mgr.deptno.dname }}</td>
+                <td>{{EMDO.mgr.deptno.loc }}</td>
+
+                <!-- <td>{{ EMDO.mgr.mgr.ename }}</td>
+                <td>{{ EMDO.mgr.mgr.deptno.dname }}</td> -->
+
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

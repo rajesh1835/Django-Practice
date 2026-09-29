@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Dept, Emp, SalGrade
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Q, Avg, F, Prefetch
 
 def insert_employee(request):
     print("*** Available Departments ***")
@@ -82,4 +82,56 @@ def display_employees(request):
     context = {"QSEO" : QSEO}
 
     return render(request, "display_emp.html", context)
-    
+
+
+def empToDept(request):
+    QSLEDO = Emp.objects.all().select_related("deptno")
+    QSLEDO = Emp.objects.select_related("deptno").all()
+    QSLEDO = Emp.objects.filter(sal__gt=2000).select_related("deptno")
+    QSLEDO = Emp.objects.filter(sal__lt=2000, deptno=20).select_related("deptno")
+    QSLEDO = Emp.objects.filter(deptno__dname="ACCOUNTING").select_related("deptno")
+    QSLEDO = Emp.objects.filter(deptno__dname__contains="a").select_related("deptno")
+    QSLEDO = Emp.objects.filter(mgr=7839).select_related("deptno")
+    QSLEDO = Emp.objects.filter(hiredate__year__gt=1983).select_related("deptno")
+    QSLEDO = Emp.objects.filter(empno__in=(7839,7902), deptno__loc="NEW YORK").select_related("deptno")
+
+
+    context = {"QSLEDO" : QSLEDO}
+
+    return render(request, "empToDept.html", context)
+
+
+def empToMgr(request):
+    QSEMO = Emp.objects.all().select_related("mgr")
+    QSEMO = Emp.objects.filter(sal__gt=2000, mgr__sal__lt=5000, deptno=F("mgr__deptno")).select_related("mgr", "deptno")
+    QSEMO = Emp.objects.filter(mgr__deptno__in=(10,20)).select_related("mgr")
+    QSEMO = Emp.objects.filter(job="SALESMAN", mgr__deptno=30).select_related("mgr")
+    QSEMO = Emp.objects.filter(hiredate__lte=F("mgr__hiredate")).select_related("mgr")
+    QSEMO = Emp.objects.filter(mgr__sal__endswith="50").select_related("mgr")
+
+    context = {"QSEMO" : QSEMO}
+
+    return render(request, "empToMgr.html", context)
+
+
+def empToMgrADept(request):
+    QSEMDO = Emp.objects.all().select_related("mgr", "deptno")
+    QSEMDO = Emp.objects.filter(mgr__deptno__loc='NEW YORK', mgr__sal__gt=3000).select_related("mgr", "deptno")
+
+    context = {"QSEMDO" : QSEMDO}
+
+    return render(request, "empToMgrADept.html", context)
+
+
+def deptToEmpPR(request):
+    QSDEO = Dept.objects.prefetch_related("emp_set")
+    QSDEO = Dept.objects.prefetch_related("emp_set").filter(dname="RESEARCH")
+    QSDEO = Dept.objects.prefetch_related("emp_set").filter(loc="CHICAGO")
+
+    QSDEO = Dept.objects.prefetch_related(Prefetch("emp_set", queryset=Emp.objects.filter(sal__gt=2000)))
+
+
+
+    context = {"QSDEO" : QSDEO}
+
+    return render(request, "deptToEmpPR.html",context)
