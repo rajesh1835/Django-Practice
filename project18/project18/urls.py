@@ -25,4 +25,6 @@ urlpatterns = [
     path("webpages/", get_webpages, name="webpage-view"),
     path("insert_access_record/", insert_access_records, name="insert-access-record"),
     path("access_records/", get_access_records, name="access-records-view"),
+    path("update_webpages/", update_webpages, name="update-webpages"),
+    path("create_webpages/", create_webpages, name="create-webpages"),
 ]
