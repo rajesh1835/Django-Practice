@@ -4,12 +4,16 @@ from django.http import HttpResponse
 from django.db.models.functions import Length
 
 def insert_topic(request):
-    tn = input("Enter the Topic Name: ")
-    TUTO = Topic.objects.get_or_create(topic_name=tn)
-    if TUTO[1]:
-        return HttpResponse("New Topic is created 🎉")
-    else:
-        return HttpResponse("Topic alredy exists! 🙃🌹")
+    if request.method == "POST":
+
+        tn = request.POST["tname"]
+        TUTO = Topic.objects.get_or_create(topic_name=tn)
+        if TUTO[1]:
+            return HttpResponse("New Topic is created 🎉")
+        else:
+            return HttpResponse("Topic alredy exists! 🙃🌹")
+
+    return render(request, "createTopics.html")
 
 def get_topics(request):
     QSTO = Topic.objects.all()
@@ -39,6 +43,7 @@ def insert_webpage(request):
             return HttpResponse("Already Exists🙃")
     else:
         return HttpResponse("Web page is not Created!!🤡")
+
 
 
 def get_webpages(request):
@@ -77,3 +82,48 @@ def get_access_records(request):
     context = {"QSARO": QSARO}
 
     return render(request, "display_access_records.html", context)
+
+
+
+def update_webpages(request):
+
+    # Webpage.objects.filter(topic_name="CRICKET").update(email="vk@gmail.com")
+
+    # Webpage.objects.filter(name="robin").update(email="robin@gmail.com")
+
+    # Webpage.objects.filter(topic_name="BGMI").update(url="https://bgmi.in")
+
+
+
+    QSWO = Webpage.objects.all()
+    context = {"QSWO": QSWO}
+    
+    return render(request, "display_webpages.html", context)
+
+
+
+def create_webpages(request):
+    TO = Topic.objects.all()
+    context = {"TO": TO}
+
+    if request.method == "POST":
+        tname = request.POST["tn"]
+        name = request.POST["name"]
+        url = request.POST["url"]
+        email = request.POST["email"]
+        mobile = request.POST["number"]
+
+        LTO = Topic.objects.get(topic_name=tname)
+
+        TWO = Webpage.objects.get_or_create(topic_name=LTO, name=name, url=url, email=email, mobile=mobile)
+
+        if TWO[1]:
+            print("Web page created successfully..")
+        else:
+            print("Oooppppsssssssssssss!!!!!!!")
+        
+        return render(request, "createWebpage.html", context)
+        
+    
+    
+    return render(request, "createWebpage.html", context)
