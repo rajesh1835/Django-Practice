@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1><i>~~ Create Employees ~~</i></h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table border="3px">
+                <tr>
+                    <td>
+                        <label for="empno">Employee No:</label>
+                        <input type="number" name="empno" id="empno">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="ename">Employee Name: </label>
+                        <input type="text" name="ename" id="ename">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="job">Job: </label>
+                        <input type="text" name="job" id="job">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="sal">Salary</label>
+                        <input type="number" name="sal" id="sal">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="comm">Commision</label>
+                        <input type="number" name="comm" id="comm">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="deptno">Department No: </label>
+                        <select name="deptno" id="deptno">
+                            {% for do in QLDO %}
+                            <option value="{{do.deptno}}">{{do.dname}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="mgr">Manager: </label>
+                        <select name="mgr" id="mgr">
+                            {% for mo in QLMO %}
+                                <option value="{{mo.empno}}">{{mo.ename}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="create_emp">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+
+</html>

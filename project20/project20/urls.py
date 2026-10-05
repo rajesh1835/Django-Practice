@@ -27,4 +27,6 @@ urlpatterns = [
     path("empToMgr/", empToMgr, name="empToMgr"),
     path("empToMgrADept/", empToMgrADept, name="empToMgrADept"),
     path("deptToEmpPR/", deptToEmpPR, name="deptToEmpPR"),
+    path("updateEmployees/", updateEmployees, name="updateEmployees"),
+    path("createEmployee/", create_employee, name="create-employee"),
 ]

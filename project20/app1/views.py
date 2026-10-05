@@ -135,3 +135,41 @@ def deptToEmpPR(request):
     context = {"QSDEO" : QSDEO}
 
     return render(request, "deptToEmpPR.html",context)
+
+
+def updateEmployees(request):
+    Emp.objects.filter(ename="Robin").update(sal=F('sal')+100)
+
+    QSEO = Emp.objects.all()
+
+    context = {"QSEO" : QSEO}
+
+    return render(request, "display_emp.html", context)
+
+
+def create_employee(request):
+    QLDO = Dept.objects.all()
+    QLMO = Emp.objects.all()
+    context = {"QLDO": QLDO, "QLMO": QLMO}
+
+    if request.method == "POST":
+        empno = request.POST["empno"]
+        ename = request.POST["ename"]
+        job = request.POST["job"]
+        sal = request.POST["sal"]
+        comm = request.POST["comm"]
+        mgr = request.POST["mgr"]
+        deptno = request.POST["deptno"]
+
+        MO = Emp.objects.get(empno= mgr)
+        DO = Dept.objects.get(deptno= deptno)
+
+        TEO = Emp.objects.get_or_create(empno=empno, ename=ename, job=job, sal=sal, comm=comm, mgr=MO, deptno=DO)
+
+        if TEO[1]:
+            print("Created Successfully..")
+        else:
+            print("Already Exixts!")
+        return render(request, "createEmployee.html", context)
+
+    return render(request, "createEmployee.html", context)
