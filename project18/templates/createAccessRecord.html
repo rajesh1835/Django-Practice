@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Record</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1><i>~~ Access Record ~~</i></h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table border="3px">
+                <tr>
+                    <td>
+                        <label for="name">Name: </label>
+                        <select name="pk" id="pk">
+                            {% for WO in WPO %}
+                            <option value="{{ WO.id }}">{{ WO.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="author">Author: </label>
+                        <input type="text" name="author" id="author">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Create">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+
+</html>
