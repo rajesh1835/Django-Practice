@@ -27,4 +27,9 @@ urlpatterns = [
     path("access_records/", get_access_records, name="access-records-view"),
     path("update_webpages/", update_webpages, name="update-webpages"),
     path("create_webpages/", create_webpages, name="create-webpages"),
+    path("create_access_records/", create_access_records, name="create-access-records"),
+    path("select_multiple_topics/", select_multiple_topics, name="select-multiple-topics"),
+    path("select_multiple_web_pages/", select_multiple_web_pages, name="select-multiple-web-pages"),
+    path("checkbox_topics/", checkbox_topics, name="checkbox-topics"),
+    path("checkbox_webpages/", checkbox_webpages, name="checkbox-webpages")
 ]

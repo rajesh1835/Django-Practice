@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Pages</title>
+</head>
+<body>
+    <center>
+        <h4>Select Your Web Pages:</h4>
+        <form action="{% url 'select-multiple-web-pages' %}" method="POST">
+            {% csrf_token %}
+            {% for wo in QLWO %}
+            <label for="webpages">{{wo.name}}</label>
+            <input type="checkbox" name="webpages" id="webpages" value="{{wo.id}}">
+            <br>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>

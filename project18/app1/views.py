@@ -127,3 +127,70 @@ def create_webpages(request):
     
     
     return render(request, "createWebpage.html", context)
+
+
+def create_access_records(request):
+    WPO = Webpage.objects.all()
+    context = {"WPO": WPO}
+
+    if request.method == "POST":
+        wid = request.POST["pk"]
+        author = request.POST["author"]
+
+        NO = Webpage.objects.get(id=wid)
+
+        ARO = AccessRecord.objects.get_or_create(name=NO, author=author)
+
+        if ARO[1]:
+            print("Created....")
+        else:
+            print("Opps.....")
+
+        return render(request, "createAccessRecord.html", context)
+    
+    return render(request, "createAccessRecord.html", context)
+
+
+def select_multiple_topics(request):
+    if request.method == "POST":
+        QSWO = Webpage.objects.none()
+        topics = request.POST.getlist("topics")
+
+        for topic in topics:
+            QSWO = QSWO | Webpage.objects.filter(topic_name=topic)
+        d = {"QSWO": QSWO}
+
+        return render(request, "display_webpages.html", d)
+    QLTO = Topic.objects.all()
+    print(QLTO)
+    context = {"QLTO": QLTO}
+    return render(request, "selectMultipleTopics.html", context)
+
+
+def select_multiple_web_pages(request):
+    if request.method == "POST":
+        QSARO = AccessRecord.objects.none()
+
+        webpages = request.POST.getlist("webpages")
+
+        for wid in webpages:
+            QSARO = QSARO | AccessRecord.objects.filter(id = wid)
+
+        d = {"QSARO": QSARO}
+        return render(request, "display_access_records.html", d)
+    
+    QLWO = Webpage.objects.all()
+    context = {"QLWO" : QLWO}
+    return render(request, "selectMultipleWebPages.html", context)
+
+
+def checkbox_topics(request):
+    QLTO = Topic.objects.all()
+    context = {"QLTO" : QLTO}
+    return render(request, "checkbox_topics.html", context)
+
+def checkbox_webpages(request):
+    QLWO = Webpage.objects.all()
+    context = {"QLWO": QLWO}
+
+    return render(request, "checkbox_webpages.html", context)

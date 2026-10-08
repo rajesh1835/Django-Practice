@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1><i>Select Multiple Web Pages</i></h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="webpages">Select Your Web Pages: </label>
+            <select name="webpages" id="webpages" multiple>
+                {% for wo in QLWO %}
+                    <option value="{{wo.id}}">{{wo.name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>
