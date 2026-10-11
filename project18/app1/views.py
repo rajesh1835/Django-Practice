@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Topic, Webpage, AccessRecord
 from django.http import HttpResponse
 from django.db.models.functions import Length
+from .forms import WebPageCreateForm, AccessRecordCreateForm
 
 def insert_topic(request):
     if request.method == "POST":
@@ -103,50 +104,45 @@ def update_webpages(request):
 
 
 def create_webpages(request):
-    TO = Topic.objects.all()
-    context = {"TO": TO}
+    EWFO = WebPageCreateForm()
+    context = {"EWFO": EWFO}
 
     if request.method == "POST":
-        tname = request.POST["tn"]
-        name = request.POST["name"]
-        url = request.POST["url"]
-        email = request.POST["email"]
-        mobile = request.POST["number"]
+        WFD = WebPageCreateForm(request.POST)
+        if WFD.is_valid():
+            to = WFD.cleaned_data['topic_name']
+            name = WFD.cleaned_data['name']
+            url = WFD.cleaned_data['url']
+            email = WFD.cleaned_data['email']
+            mobile = WFD.cleaned_data['mobile']
 
-        LTO = Topic.objects.get(topic_name=tname)
+            TWO = Webpage.objects.get_or_create(topic_name=to, name=name, url=url, email=email, mobile=mobile)
 
-        TWO = Webpage.objects.get_or_create(topic_name=LTO, name=name, url=url, email=email, mobile=mobile)
-
-        if TWO[1]:
-            print("Web page created successfully..")
-        else:
-            print("Oooppppsssssssssssss!!!!!!!")
-        
-        return render(request, "createWebpage.html", context)
-        
+            if TWO[1]:
+                return HttpResponse("Web Page Created..")
+            return HttpResponse("Already Existx!!")
+        return HttpResponse("Invalid Data..")
     
     
     return render(request, "createWebpage.html", context)
 
 
 def create_access_records(request):
-    WPO = Webpage.objects.all()
-    context = {"WPO": WPO}
+    EARF = AccessRecordCreateForm()
+    context = {"EARF": EARF}
 
     if request.method == "POST":
-        wid = request.POST["pk"]
-        author = request.POST["author"]
+        DAR = AccessRecordCreateForm(request.POST)
 
-        NO = Webpage.objects.get(id=wid)
+        if DAR.is_valid():
+            wo = DAR.cleaned_data['name']
+            author = DAR.cleaned_data['author']
 
-        ARO = AccessRecord.objects.get_or_create(name=NO, author=author)
-
-        if ARO[1]:
-            print("Created....")
-        else:
-            print("Opps.....")
-
-        return render(request, "createAccessRecord.html", context)
+            TARO = AccessRecord.objects.get_or_create(name=wo, author=author)
+            if TARO[1]:
+                return HttpResponse("Creteated..")
+            return HttpResponse("Exists!!")
+        return HttpResponse("Invalid Data!") 
     
     return render(request, "createAccessRecord.html", context)
 
