@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Dept, Emp, SalGrade
 from django.http import HttpResponse
 from django.db.models import Q, Avg, F, Prefetch
+from .forms import EmployeeCreateForm
 
 def insert_employee(request):
     print("*** Available Departments ***")
@@ -148,28 +149,16 @@ def updateEmployees(request):
 
 
 def create_employee(request):
-    QLDO = Dept.objects.all()
-    QLMO = Emp.objects.all()
-    context = {"QLDO": QLDO, "QLMO": QLMO}
+    EEFO = EmployeeCreateForm()
 
-    if request.method == "POST":
-        empno = request.POST["empno"]
-        ename = request.POST["ename"]
-        job = request.POST["job"]
-        sal = request.POST["sal"]
-        comm = request.POST["comm"]
-        mgr = request.POST["mgr"]
-        deptno = request.POST["deptno"]
-
-        MO = Emp.objects.get(empno= mgr)
-        DO = Dept.objects.get(deptno= deptno)
-
-        TEO = Emp.objects.get_or_create(empno=empno, ename=ename, job=job, sal=sal, comm=comm, mgr=MO, deptno=DO)
-
-        if TEO[1]:
-            print("Created Successfully..")
+    if request.method=="POST":
+        EDO = EmployeeCreateForm(request.POST)
+        if EDO.is_valid():
+            EDO.save()
+            return HttpResponse("Created")
         else:
-            print("Already Exixts!")
-        return render(request, "createEmployee.html", context)
+            return HttpResponse("In valid Data!!")
+
+    context = {"EEFO":EEFO}
 
     return render(request, "createEmployee.html", context)
