@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from accounts.views import create_user, bombit, user_login, home, user_logout
+from accounts.views import create_user, bombit, user_login, home, user_logout, display_details, change_password, reset_password
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -27,4 +27,7 @@ urlpatterns = [
     path("", home, name="home"),
     path("user_login/", user_login, name="user-login"),
     path("user_logout/", user_logout, name="user-logout"),
-] + static(settings.MEDIA_URL, documrnt_root=settings.MEDIA_ROOT)
+    path("display_details/", display_details, name="display-details"),
+    path("change_password/", change_password, name="change-password"),
+    path("reset_password/", reset_password, name="reset-password"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .models import User, Profile
 
 def create_user(request):
     UFO = UserCreateForm()
@@ -86,3 +87,39 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse("user-login"))
+
+@login_required
+def display_details(request):
+    username = request.session.get("username")
+    UO = User.objects.get(username=username)
+    PO = Profile.objects.get(username=UO)
+
+    context = {"UO":UO, "PO":PO}
+
+    return render(request, "userDetails.html", context)
+
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        username = request.session.get("username")
+        password = request.POST["npw"]
+
+        UO = User.objects.get(username=username)
+        UO.set_password(password)
+        UO.save()
+        return HttpResponse("Password Changed Successfully..")
+    return render(request, "change_password.html")
+
+
+def reset_password(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["npw"]
+        UO = User.objects.filter(username=username).first()
+        if UO:
+            UO.set_password(password)
+            UO.save()
+            return HttpResponseRedirect(reverse("user-login"))
+        return HttpResponse("No User Found!")
+    return render(request, "reset_password.html")
