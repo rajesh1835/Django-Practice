@@ -25,8 +25,11 @@
 
             {% if not user.is_authenticated %}
             <a class="btn btn-info" role="button" href="{% url 'user-login' %}">Login</a>
+            <a class="btn btn-secondary" role="button" href="{% url 'reset-password' %}">Reset Password</a>
             {% else %}
             <a class="btn btn-danger" role="button" href="{% url 'user-logout' %}">Logout</a>
+            <a class="btn btn-info" role="button" href="{% url 'display-details' %}">Details</a>
+            <a class="btn btn-secondary" role="button" href="{% url 'change-password' %}">Change Password</a>
             {% endif %}
         </div>
     </div>
