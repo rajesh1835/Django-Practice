@@ -28,11 +28,6 @@ def create_user(request):
             MDPFO.username = MDUFO
             MDPFO.save()
 
-            send_mail("Welcome On boarding ",
-                      "You have Successfully registered 🎉",
-                      "rajeshtarigonda@gmail.com",
-                      [MDUFO.email],
-                      fail_silently=False)
             
             return HttpResponse("Created Successfully")
         
