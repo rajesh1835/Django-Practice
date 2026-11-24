@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>School Details</title>
+{% endblock %}
+
+{% block body %}
+<body>
+    <center>
+        <h2><i>{{ school.scname }} School </i></h2>
+
+        <h3>Name of the School: {{school.scname}}</h3>
+        <h3>Address: {{school.scloc}}</h3>
+        <h3>Principal: {{school.scprincepal}} </h3>
+        
+        <a href="{% url 'SchoolUpdate' pk=school.pk %}" class="btn btn-secondary">Update</a>
+        <a href="{% url 'SchoolDelete' pk=school.pk %}" class="btn btn-danger">Delete</a>
+
+    </center>
+</body>
+{% endblock %}

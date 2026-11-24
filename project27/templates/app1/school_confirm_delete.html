@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>School Delete</title>
+{% endblock %}
+
+{% block body %}
+
+<body>
+    <center>
+        <p>
+            Are you sure want to delete {{school.scname}}?
+        </p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes - Delete" class="btn-danger">
+        </form>
+        <br>
+
+        <a class="btn btn-primary" href="{% url 'SchoolList' %}">SchoolList</a>
+        <a class="btn btn-secondary" href="{% url 'SchoolDetails' pk=school.pk %}">SchoolDetails</a>
+
+
+
+
+    </center>
+</body>
+{% endblock %}
