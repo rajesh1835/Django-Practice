@@ -4,6 +4,10 @@ from django.shortcuts import render
 from .models import Bank, Branch, BusinessEmployemntData
 from django.http import HttpResponse
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import BankModelSerializer, BranchModelSerializer
+
 def insert_bank(request):
     file = "D:\\projects\\Django\\project24\\app1\\bank.csv"
 
@@ -54,3 +58,15 @@ def insert_business(request):
             bo.save()
 
         return HttpResponse("Business Data inserted sccessfully..")
+
+@api_view()
+def bankData(request):
+    QSB = Bank.objects.all()
+    JSO = BankModelSerializer(QSB, many=True)
+    return Response(JSO.data)
+
+@api_view()
+def branchData(request):
+    QSBO = Branch.objects.all()
+    JSO = BranchModelSerializer(QSBO, many=True)
+    return Response(JSO.data)

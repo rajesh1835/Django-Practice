@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app1.views import insert_bank, insert_branches, insert_business
+from app1.views import insert_bank, insert_branches, insert_business, bankData, branchData
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("insert_banks/",insert_bank, name="insert-bank"),
     path("insert_branches/",insert_branches, name="insert-branches"),
     path("insert_business/",insert_business, name="insert_business"),
+    path("bankData/",bankData,name="bankData"),
+    path("branchData/",branchData,name="branchData"),
 
 ]
